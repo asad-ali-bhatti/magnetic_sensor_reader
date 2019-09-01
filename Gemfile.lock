@@ -76,7 +76,12 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.5)
+    connection_pool (2.2.2)
     crass (1.0.4)
+    dotenv (2.7.5)
+    dotenv-rails (2.7.5)
+      dotenv (= 2.7.5)
+      railties (>= 3.2, < 6.1)
     erubi (1.8.0)
     execjs (2.7.0)
     ffi (1.11.1)
@@ -112,6 +117,8 @@ GEM
     public_suffix (4.0.1)
     puma (3.12.1)
     rack (2.0.7)
+    rack-protection (2.0.7)
+      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.2)
@@ -142,6 +149,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
+    redis (4.1.2)
     regexp_parser (1.6.0)
     ruby_dep (1.5.0)
     rubyzip (1.2.3)
@@ -159,6 +167,11 @@ GEM
     selenium-webdriver (3.142.3)
       childprocess (>= 0.5, < 2.0)
       rubyzip (~> 1.2, >= 1.2.2)
+    sidekiq (6.0.0)
+      connection_pool (>= 2.2.2)
+      rack (>= 2.0.0)
+      rack-protection (>= 2.0.0)
+      redis (>= 4.1.0)
     spring (2.1.0)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -201,6 +214,7 @@ DEPENDENCIES
   capybara (>= 2.15)
   chromedriver-helper
   coffee-rails (~> 4.2)
+  dotenv-rails
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   mqtt
@@ -209,6 +223,7 @@ DEPENDENCIES
   rails (~> 5.2.2)
   sass-rails (~> 5.0)
   selenium-webdriver
+  sidekiq (>= 6.0)
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)
