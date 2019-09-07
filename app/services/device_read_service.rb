@@ -9,11 +9,10 @@ class DeviceReadService
       count = 0
       @client.get do |_topic, message|
         return @client.disconnect if count == 100
-        puts eval(message)
-        puts count
+        Readings::Create.perform_later(message, @device.id)
         count += 1
       end
-    rescue MQTT::ProtocolException
+    rescue
       @client.disconnect
     end
   end
