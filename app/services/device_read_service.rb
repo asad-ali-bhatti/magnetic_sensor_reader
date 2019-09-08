@@ -1,6 +1,7 @@
 class DeviceReadService
-  def initialize(device_name)
+  def initialize(device_name, reading_type= Reading.reading_types[:predict])
     @device = Device.find_or_create_by(name: device_name)
+    @reading_type = reading_type
     init_mqtt_client
   end
 
@@ -9,7 +10,7 @@ class DeviceReadService
       count = 0
       @client.get do |_topic, message|
         return @client.disconnect if count == 100
-        Readings::Create.perform_later(message, @device.id)
+        Readings::Create.perform_later(message, @device.id, @reading_type)
         count += 1
       end
     rescue
