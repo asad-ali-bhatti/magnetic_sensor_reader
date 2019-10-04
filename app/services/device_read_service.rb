@@ -9,7 +9,7 @@ class DeviceReadService
     begin
       count = 0
       @client.get do |_topic, message|
-        return @client.disconnect if count == 100
+        return @client.disconnect if count == 7000
         Readings::Create.perform_later(message, @device.id, @reading_type)
         count += 1
       end
