@@ -9,7 +9,7 @@ class DeviceReadService
     begin
       count = 0
       @client.get do |_topic, message|
-        return @client.disconnect if count == 7000
+        return @client.disconnect if count == target_count
         Readings::Create.perform_later(message, @device.id, @reading_type)
         count += 1
       end
@@ -31,5 +31,18 @@ class DeviceReadService
                            port: ENV['MQTT_PORT'],
                            client_id: 'device_reader_api')
     end
+  end
+
+  def target_count
+    @target_count ||= case @reading_type
+                      when 'predict'
+                        500
+                      when 'test'
+                        2000
+                      when 'training'
+                        7000
+                      else
+                        0
+                      end
   end
 end
